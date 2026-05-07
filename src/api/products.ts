@@ -1,5 +1,4 @@
 //started to change products.js
-
 export interface Product {
   id: number;
   title: string;
@@ -18,16 +17,21 @@ export interface ProductsResponse {
   limit: number;
 }
 
-export const getProducts = async (): Promise<ProductsResponse> => {
-  const res = await fetch("https://dummyjson.com/products?limit=20");
-  const result = await res.json();
-  if (!res.ok) throw new Error("Failed to fetch products");
-  return result;
-};
+// Pagination + Category Filter API
+export const getProducts = async (
+  page: number,
+  category: string,
+  limit: number
+): Promise<ProductsResponse> => {
+  const skip = (page - 1) * limit;
+const url=
+category==="All"?`https://dummyjson.com/products?limit=${limit}&skip=${skip}`
+      : `https://dummyjson.com/products/category/${category}?limit=${limit}&skip=${skip}`;
 
-export const getProductById = async (id: number): Promise<Product> => {
-  const res = await fetch(`https://dummyjson.com/products/${id}`);
-  const result = await res.json();
-  if (!res.ok) throw new Error("Failed to fetch product");
-  return result;
-};
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error("failed to fetch api");
+  } else {
+    return res.json() 
+  }
+}
