@@ -7,6 +7,7 @@ function SearchPage() {
   const [searchValue, setSearchValue] = useState("");
 
   const debounced = useDebounce(searchValue,800);
+// added a comment
 
   return (
     <div className="p-6">
