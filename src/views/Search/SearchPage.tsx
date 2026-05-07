@@ -8,7 +8,7 @@ function SearchPage() {
 
   const debounced = useDebounce(searchValue,800);
 // added a comment
-
+// comment 2 
   return (
     <div className="p-6">
       {/* Title */}
